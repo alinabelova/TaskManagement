@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="TaskService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:27030/TaskService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:27030/TaskService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:27030/TaskService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/TaskManagement.DAL.Models" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ITaskService_GetRootTasks_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRootTasks" />
+  </wsdl:message>
+  <wsdl:message name="ITaskService_GetRootTasks_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRootTasksResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITaskService_GetChildsForTask_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetChildsForTask" />
+  </wsdl:message>
+  <wsdl:message name="ITaskService_GetChildsForTask_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetChildsForTaskResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITaskService_AddTask_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddTask" />
+  </wsdl:message>
+  <wsdl:message name="ITaskService_AddTask_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddTaskResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITaskService_UpdateTask_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateTask" />
+  </wsdl:message>
+  <wsdl:message name="ITaskService_UpdateTask_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateTaskResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITaskService_DeleteTask_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteTask" />
+  </wsdl:message>
+  <wsdl:message name="ITaskService_DeleteTask_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteTaskResponse" />
+  </wsdl:message>
+  <wsdl:message name="ITaskService_FindTask_InputMessage">
+    <wsdl:part name="parameters" element="tns:FindTask" />
+  </wsdl:message>
+  <wsdl:message name="ITaskService_FindTask_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FindTaskResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ITaskService">
+    <wsdl:operation name="GetRootTasks">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITaskService/GetRootTasks" message="tns:ITaskService_GetRootTasks_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITaskService/GetRootTasksResponse" message="tns:ITaskService_GetRootTasks_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetChildsForTask">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITaskService/GetChildsForTask" message="tns:ITaskService_GetChildsForTask_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITaskService/GetChildsForTaskResponse" message="tns:ITaskService_GetChildsForTask_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddTask">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITaskService/AddTask" message="tns:ITaskService_AddTask_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITaskService/AddTaskResponse" message="tns:ITaskService_AddTask_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTask">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITaskService/UpdateTask" message="tns:ITaskService_UpdateTask_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITaskService/UpdateTaskResponse" message="tns:ITaskService_UpdateTask_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTask">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITaskService/DeleteTask" message="tns:ITaskService_DeleteTask_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITaskService/DeleteTaskResponse" message="tns:ITaskService_DeleteTask_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FindTask">
+      <wsdl:input wsaw:Action="http://tempuri.org/ITaskService/FindTask" message="tns:ITaskService_FindTask_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ITaskService/FindTaskResponse" message="tns:ITaskService_FindTask_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_ITaskService" type="tns:ITaskService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetRootTasks">
+      <soap:operation soapAction="http://tempuri.org/ITaskService/GetRootTasks" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChildsForTask">
+      <soap:operation soapAction="http://tempuri.org/ITaskService/GetChildsForTask" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddTask">
+      <soap:operation soapAction="http://tempuri.org/ITaskService/AddTask" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateTask">
+      <soap:operation soapAction="http://tempuri.org/ITaskService/UpdateTask" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteTask">
+      <soap:operation soapAction="http://tempuri.org/ITaskService/DeleteTask" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindTask">
+      <soap:operation soapAction="http://tempuri.org/ITaskService/FindTask" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TaskService">
+    <wsdl:port name="BasicHttpBinding_ITaskService" binding="tns:BasicHttpBinding_ITaskService">
+      <soap:address location="http://localhost:27030/TaskService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

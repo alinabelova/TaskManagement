@@ -1,0 +1,12 @@
+C:\Projects\TaskManagement\TaskManagement.DAL\bin\Release\TaskManagement.DAL.dll.config
+C:\Projects\TaskManagement\TaskManagement.DAL\bin\Release\TaskManagement.DAL.dll
+C:\Projects\TaskManagement\TaskManagement.DAL\bin\Release\TaskManagement.DAL.pdb
+C:\Projects\TaskManagement\TaskManagement.DAL\bin\Release\EntityFramework.dll
+C:\Projects\TaskManagement\TaskManagement.DAL\bin\Release\EntityFramework.SqlServer.dll
+C:\Projects\TaskManagement\TaskManagement.DAL\bin\Release\EntityFramework.xml
+C:\Projects\TaskManagement\TaskManagement.DAL\bin\Release\EntityFramework.SqlServer.xml
+C:\Projects\TaskManagement\TaskManagement.DAL\obj\Release\TaskManagement.DAL.dll
+C:\Projects\TaskManagement\TaskManagement.DAL\obj\Release\TaskManagement.DAL.pdb
+C:\Projects\TaskManagement\TaskManagement.DAL\obj\Release\TaskManagement.DAL.csprojResolveAssemblyReference.cache
+C:\Projects\TaskManagement\TaskManagement.DAL\obj\Release\TaskManagement.DAL.Migrations.CreateTaskDb.resources
+C:\Projects\TaskManagement\TaskManagement.DAL\obj\Release\TaskManagement.DAL.csproj.GenerateResource.Cache

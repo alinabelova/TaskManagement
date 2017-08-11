@@ -1,0 +1,113 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:res="clr-namespace:TaskManagement.MVVM.Properties"
+        xmlns:conv="clr-namespace:TaskManagement.MVVM.Utils"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+        xmlns:mvvm="clr-namespace:TaskManagement.MVVM"
+        x:Class="TaskManagement.MVVM.MainWindow"
+        xml:lang="ru-RU"
+        mc:Ignorable="d"
+        Title="{x:Static res:Resources.TitleWindow}" Height="600" Width="636" 
+        Background="WhiteSmoke" FontFamily="Segoe UI" FontSize="12px" ResizeMode="NoResize">
+    <Window.Resources>
+        <conv:EnumConverter x:Key="EnumConverter" />
+        <mvvm:RadContextMenuXamlHolder  x:Key="ContextMenuHolder" >
+            <telerik:RadContextMenu DataContext="{Binding Path=MainWindowViewModel, RelativeSource={RelativeSource Self}}">
+                <telerik:RadMenuItem Command="{Binding Path=AddChildCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type telerik:RadContextMenu}}}" Header="{x:Static res:Resources.AddChildRadMenuItem}" />
+                <telerik:RadMenuItem Command="{Binding Path=AddCommand}" Header="{x:Static res:Resources.AddRadMenuItem}"/>
+                <telerik:RadMenuItem IsSeparator="True" />
+                <telerik:RadMenuItem Command="{Binding Path=EditCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type telerik:RadContextMenu}}}" Header="{x:Static res:Resources.EditRadMenuItem}"/>
+                <telerik:RadMenuItem Command="{Binding Path=DeleteCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type telerik:RadContextMenu}}}" Header="{x:Static res:Resources.DeleteRadMenuItem}"/>
+                <telerik:RadMenuItem IsSeparator="True" />
+                <telerik:RadMenuItem Command="{Binding Path=UpdateCommand}" Header="{x:Static res:Resources.UpdateRadMenuItem}"/>
+            </telerik:RadContextMenu>
+        </mvvm:RadContextMenuXamlHolder>
+        <Style TargetType="telerik:RadTreeView">
+            <Setter Property="telerik:RadContextMenu.ContextMenu" Value="{Binding Path=ContextMenu, Mode=TwoWay, Source={StaticResource ContextMenuHolder}}" />
+        </Style>
+        <Style x:Key="TreeViewItemStyle" TargetType="telerik:RadTreeViewItem" >
+            <Setter Property="IsExpanded" Value="{Binding Path=IsExpanded, Mode=TwoWay}"/>
+        </Style>
+        <Style x:Key="TbStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="Gray"></Setter>
+        </Style>
+        <Style TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="True">
+                    <Setter Property="ToolTip"
+                Value="{Binding RelativeSource={RelativeSource Self},
+                    Path=(Validation.Errors)[0].ErrorContent}" />
+                    <Setter Property="Foreground" Value="Red" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <HierarchicalDataTemplate  x:Key="TreeViewItemTemplate"  ItemsSource="{Binding Path=UserTasks, Mode=TwoWay}" >
+            <TextBlock Text="{Binding Title}" />
+        </HierarchicalDataTemplate>
+        <DataTemplate x:Key="EditTreeViewTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBox Text="{Binding Title, Mode=TwoWay}" Margin="5 0 0 0" />
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <GroupBox x:Name="GroupBoxTreeView"  Grid.Column="0" Background="White" HorizontalAlignment="Left" VerticalAlignment="Top" Width="285" Margin="5,4,0,0">
+            <GroupBox.Header>
+                <TextBlock FontWeight="Bold" Text="{x:Static res:Resources.TreeViewGroupBox}"/>
+            </GroupBox.Header>
+            <telerik:RadTreeView  x:Name="RadTreeView" FontFamily="Segoe UI" FontSize="12px" ItemsSource="{Binding UserTasks, Mode=TwoWay}" SelectedItem="{Binding SelectedTask, Mode=TwoWay}"   IsEditable="True" ItemContainerStyle="{StaticResource TreeViewItemStyle}"  ItemTemplate="{StaticResource TreeViewItemTemplate}" ItemEditTemplate="{StaticResource EditTreeViewTemplate}" IsExpandOnSingleClickEnabled="True" Margin="0,0,19,10" telerik:StyleManager.Theme="Office2013">
+            </telerik:RadTreeView>
+        </GroupBox>
+
+        <GroupBox x:Name="GroupBoxDetails" Grid.Column="1" Background="White"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="304" Margin="0,4,0,0">
+            <GroupBox.Header>
+                <TextBlock FontWeight="Bold" Text="{x:Static res:Resources.DetailsGroupBox}"/>
+            </GroupBox.Header>
+            <StackPanel Margin="10" >
+                <StackPanel.Resources>
+                    <Style BasedOn="{StaticResource TbStyle}" TargetType="{x:Type TextBlock}" />
+                </StackPanel.Resources>
+                <TextBlock Text="{x:Static res:Resources.TitleLabel}" />
+                <TextBox x:Name="TitleTextBox" Text="{Binding SelectedTask.Title, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsTextBoxReadOnly}"/>
+                <TextBlock  Text="{x:Static res:Resources.ExecutorsLabel}"/>
+                <TextBox x:Name="ExecutorTextBox" Text="{Binding SelectedTask.Executors, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="{Binding IsTextBoxReadOnly}"/>
+                <TextBlock Text="{x:Static res:Resources.CreatedDateLabel}"/>
+                <TextBox Text="{Binding SelectedTask.Created, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Visibility="{Binding DetailsModeControlsVisibility}"/>
+                <telerik:RadDateTimePicker x:Name="CreatedDateTimePiecker" FontFamily="Segoe UI" FontSize="12px" Visibility="{Binding EditModeControlsVisibility}" VerticalAlignment="Top" SelectedValue="{Binding SelectedTask.Created, UpdateSourceTrigger=PropertyChanged}" telerik:StyleManager.Theme="Office2013"/>
+                <TextBlock Text="{x:Static res:Resources.StatusLabel}"/>
+
+                <ComboBox  ItemsSource="{Binding Path=TaskStatuses}" 
+                          DisplayMemberPath="Value"
+                          SelectedValuePath="Key" 
+                          SelectedValue="{Binding SelectedTask.Status, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          Visibility="{Binding EditModeControlsVisibility}"/>
+
+                <TextBox Text="{Binding SelectedTask.Status, Mode=TwoWay, Converter={StaticResource EnumConverter}, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Visibility="{Binding DetailsModeControlsVisibility}" />
+                <TextBlock Text="{x:Static res:Resources.PlannedTimeLabel}"/>
+                <TextBox Text="{Binding SelectedTask.PlannedHours, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Visibility="{Binding DetailsModeControlsVisibility}"/>
+                <telerik:RadTimeSpanPicker GenerateDefaultComponents="True" Value="{Binding SelectedTask.PlannedHours, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding EditModeControlsVisibility}" FontFamily="Segoe UI" FontSize="12px" telerik:StyleManager.Theme="Office2013"/>
+                <TextBlock Text="{x:Static res:Resources.SubTasksPlannedHoursLabel}" Visibility="{Binding CalculatedFieldsVisibility}"/>
+                <TextBox Text="{Binding SelectedTask.SubTasksPlannedHours, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Visibility="{Binding CalculatedFieldsVisibility}"/>
+                <TextBlock Text="{x:Static res:Resources.ActualTimePiecker}"/>
+                <TextBox Text="{Binding SelectedTask.ActualExecutionTime, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Visibility="{Binding DetailsModeControlsVisibility}"/>
+                <telerik:RadTimeSpanPicker GenerateDefaultComponents="True" Value="{Binding SelectedTask.ActualExecutionTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding EditModeControlsVisibility}" FontFamily="Segoe UI" FontSize="12px" telerik:StyleManager.Theme="Office2013"/>
+                <TextBlock Text="{x:Static res:Resources.SubTasksActualExecutionTimeLabel}" Visibility="{Binding CalculatedFieldsVisibility}"/>
+                <TextBox Text="{Binding SelectedTask.SubTasksActualExecutionTime, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Visibility="{Binding CalculatedFieldsVisibility}"/>
+                <TextBlock Text="{x:Static res:Resources.FinishedDateLabel}"/>
+                <TextBox Text="{Binding SelectedTask.FinishedDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Visibility="{Binding DetailsModeControlsVisibility}"/>
+                <telerik:RadDateTimePicker x:Name="FinishedDateTimePiecker" FontFamily="Segoe UI" FontSize="12px" Visibility="{Binding EditModeControlsVisibility}" VerticalAlignment="Top" SelectedValue="{Binding SelectedTask.FinishedDate, UpdateSourceTrigger=PropertyChanged}" telerik:StyleManager.Theme="Office2013"/>
+                <TextBlock Text="{x:Static res:Resources.DescriptionLabel}"/>
+                <TextBox Text="{Binding SelectedTask.Description, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" AcceptsReturn="True"  IsReadOnly="{Binding IsTextBoxReadOnly}"/>
+                <telerik:RadButton x:Name="RadButton" Content="{x:Static res:Resources.SaveButton}" HorizontalAlignment="Right" Height="Auto" Margin="2" VerticalAlignment="Top" Width="Auto" Visibility="{Binding EditModeControlsVisibility}" Command="{Binding SaveCommand}" CommandParameter="{Binding }" FontFamily="Segoe UI" FontSize="12px" telerik:StyleManager.Theme="Office2013"/>
+                
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</Window>
+ 

@@ -1,0 +1,9 @@
+C:\Projects\TaskManagement\TaskManagement.BLL\bin\Release\TaskManagement.BLL.dll
+C:\Projects\TaskManagement\TaskManagement.BLL\bin\Release\TaskManagement.BLL.pdb
+C:\Projects\TaskManagement\TaskManagement.BLL\bin\Release\TaskManagement.DAL.dll
+C:\Projects\TaskManagement\TaskManagement.BLL\bin\Release\EntityFramework.dll
+C:\Projects\TaskManagement\TaskManagement.BLL\bin\Release\TaskManagement.DAL.pdb
+C:\Projects\TaskManagement\TaskManagement.BLL\bin\Release\EntityFramework.xml
+C:\Projects\TaskManagement\TaskManagement.BLL\obj\Release\TaskManagement.BLL.csprojResolveAssemblyReference.cache
+C:\Projects\TaskManagement\TaskManagement.BLL\obj\Release\TaskManagement.BLL.dll
+C:\Projects\TaskManagement\TaskManagement.BLL\obj\Release\TaskManagement.BLL.pdb

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/TaskManagement.DAL.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/TaskManagement.DAL.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:27030/TaskService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="ArrayOfUserTask">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UserTask" nillable="true" type="tns:UserTask" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUserTask" nillable="true" type="tns:ArrayOfUserTask" />
+  <xs:complexType name="UserTask">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:NotifyPropertyChangedBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ActualExecutionTime" nillable="true" type="ser:duration" />
+          <xs:element minOccurs="0" name="Created" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Executors" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FinishedDate" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Id" type="xs:int" />
+          <xs:element minOccurs="0" name="IsExpanded" type="xs:boolean" />
+          <xs:element minOccurs="0" name="PlannedHours" nillable="true" type="ser:duration" />
+          <xs:element minOccurs="0" name="Status" type="tns:Statuses" />
+          <xs:element minOccurs="0" name="SubTasksActualExecutionTime" nillable="true" type="ser:duration" />
+          <xs:element minOccurs="0" name="SubTasksActualExecutionTimeTicks" nillable="true" type="xs:long" />
+          <xs:element minOccurs="0" name="SubTasksPlannedHours" nillable="true" type="ser:duration" />
+          <xs:element minOccurs="0" name="SubTasksPlannedHoursTicks" nillable="true" type="xs:long" />
+          <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Updated" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="UserTaskId" nillable="true" type="xs:int" />
+          <xs:element minOccurs="0" name="UserTasks" nillable="true" type="tns:ArrayOfUserTask" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="UserTask" nillable="true" type="tns:UserTask" />
+  <xs:complexType name="NotifyPropertyChangedBase">
+    <xs:sequence />
+  </xs:complexType>
+  <xs:element name="NotifyPropertyChangedBase" nillable="true" type="tns:NotifyPropertyChangedBase" />
+  <xs:simpleType name="Statuses">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Appointed" />
+      <xs:enumeration value="IsPerformed" />
+      <xs:enumeration value="Suspended" />
+      <xs:enumeration value="Completed" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Statuses" nillable="true" type="tns:Statuses" />
+</xs:schema>
